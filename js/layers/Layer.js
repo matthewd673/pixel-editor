@@ -283,21 +283,29 @@ class Layer {
             previewWidth, previewHeight);
     }
 
-    drawLine(x0,y0,x1,y1, brushSize, clear=false) {
+    drawLine(x0,y0,x1,y1, brushSize, brushType) {
         var dx = Math.abs(x1-x0);
         var dy = Math.abs(y1-y0);
         var sx = (x0 < x1 ? 1 : -1);
         var sy = (y0 < y1 ? 1 : -1);
         var err = dx-dy;
     
+        console.log(brushType);
+
         while (true) {
             //set pixel
             // If the current tool is the brush
             // REFACTOR: this is terrible
-            if (!clear) {
+            if (brushType === 'rect' || brushSize === 1) { // fall back to rect when brush size is 1
                 // I fill the rect
                 this.context.fillRect(x0-Math.floor(brushSize/2), y0-Math.floor(brushSize/2), brushSize, brushSize);
-            } else {
+            }
+            else if (brushType === 'round') {
+                this.context.beginPath();
+                this.context.ellipse(x0, y0, Math.floor(brushSize/2), Math.floor(brushSize/2), 0, 0, Math.PI*2);
+                this.context.fill();
+            }
+            else if (brushType === 'clear') {
                 // In case I'm using the eraser I must clear the rect
                 this.context.clearRect(x0-Math.floor(brushSize/2), y0-Math.floor(brushSize/2), brushSize, brushSize);
             }

@@ -28,7 +28,8 @@ class BrushTool extends ResizableTool {
                 Math.floor(mousePos[1]/currFile.zoom),
                 Math.floor(mousePos[0]/currFile.zoom),
                 Math.floor(mousePos[1]/currFile.zoom), 
-                this.currSize
+                this.currSize,
+                'round'
             );
         }
 
@@ -46,7 +47,8 @@ class BrushTool extends ResizableTool {
                 Math.floor(this.prevMousePos[1]/currFile.zoom),
                 Math.floor(this.currMousePos[0]/currFile.zoom),
                 Math.floor(this.currMousePos[1]/currFile.zoom),
-                this.currSize
+                this.currSize,
+                'round'
             );
         }
         
